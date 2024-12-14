@@ -8,7 +8,7 @@ using namespace std;
 
 template <class T>
 class SimpleVector {
-private:
+protected:
     T* aptr; // To point to the allocated array
     int arraySize; // Number of elements in the array
     void memError(); // Handles memory allocation errors
