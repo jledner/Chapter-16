@@ -30,33 +30,6 @@ SortableVector<T>::SortableVector(const SortableVector& obj) :
         this->operator[](count) = obj[count];
 }
 
-template <class T>
-void SortableVector<T>::sort() {
-    bool sorted = false;
-
-    SortableVector<T> newVec(this->size());
-    for (int i = 0; i < this->arraySize(); i++) {
-        newVec[i] = this->getElementAt(i);
-    }
-
-    while (!sorted) {
-        sorted = true;
-        for (int i = 0; i < this->size() - 1; i++) {
-            if (newVec[i] > newVec[i + 1]) {
-                T temp = newVec[i + 1];
-                newVec[i + 1] = newVec[i];
-                newVec[i] = temp;
-                sorted = false;
-            }
-        }
-    }
-
-    for (int i = 0; i < this->size(); i++) {
-        *this[i] = newVec[i];
-    }
-}
-
-
 template<class T>
 void SortableVector<T>::sort() {
     bool sorted = false;
