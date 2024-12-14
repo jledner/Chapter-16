@@ -1,6 +1,6 @@
-#ifndef SEARCHABLEVECTOR_H
-#define SEARCHABLEVECTOR_H
-#include "SimpleVector.h"
+#ifndef SORTABLEVECTOR_H
+#define SORTABLEVECTOR_H
+#include "..\PC-8\SimpleVector.h"
 #include <algorithm>
 
 template <class T>
@@ -15,8 +15,11 @@ public:
     // Copy constructor
     SortableVector(const SortableVector&);
 
+    // Converting constructor 
+    SortableVector(const SimpleVector<T>& obj);
+
     // Method to sort vector
-    void SortableVector<T>::sort();
+    void sort();
 
     // Accessor to find an item
     bool findItem(const T);
@@ -28,6 +31,14 @@ SortableVector<T>::SortableVector(const SortableVector& obj) :
     SimpleVector<T>(obj.size()) {
     for (int count = 0; count < this->size(); count++)
         this->operator[](count) = obj[count];
+}
+
+// Converting constructor
+template <class T>
+SortableVector<T>::SortableVector(const SimpleVector<T>& obj)
+    : SimpleVector<T>(obj.size()) {
+    for (int count = 0; count < this->size(); count++)
+        (*this)[count] = obj.operator[](count);
 }
 
 template<class T>

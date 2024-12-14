@@ -1,6 +1,8 @@
 // This program demonstrates the SimpleVector template.
 #include <iostream>
 #include "SimpleVector.h"
+#include "..\PC-9\SearchableVector.h"
+#include "..\PC-10\SortableVector.h"
 using namespace std;
 
 int main() {
@@ -68,17 +70,31 @@ int main() {
         cout << doubleTable[count] << " ";
     cout << endl;
 
-    doubleTable.push_back(34);
+    doubleTable.push_back(10);
     cout << "Push_back completed\n";
     for (count = 0; count < SIZE + 1; count++)
         cout << doubleTable[count] << " ";
     cout << endl;
 
-    doubleTable.pop_back();
+    SortableVector<double> sortvec(doubleTable);
+    sortvec.sort();
+    for (count = 0; count < SIZE; count++)
+        cout << sortvec[count] << " ";
+    cout << endl;
+
+    sortvec.pop_back();
     cout << "Pop_back completed\n";
     for (count = 0; count < SIZE; count++)
-        cout << doubleTable[count] << " ";
+        cout << sortvec[count] << " ";
     cout << endl;
+
+    bool found = sortvec.findItem(6);
+    if (found) {
+        cout << "Found" << endl;
+    }
+
+
+
 
     return 0;
 }

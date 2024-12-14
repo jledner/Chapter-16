@@ -8,11 +8,11 @@ using namespace std;
 
 template <class T>
 class SimpleVector {
-protected:
+private:
     T* aptr; // To point to the allocated array
     int arraySize; // Number of elements in the array
     void memError(); // Handles memory allocation errors
-    void subError(); // Handles subscripts out of range
+    void subError() const; // Add const here
 
 public:
     // Default constructor
@@ -38,8 +38,19 @@ public:
     // Accessor to return a specific element
     T getElementAt(int position);
 
-    // Overloaded [] operator declaration
-    T& operator[](const int&);
+    // Non-const operator[] (existing)
+    T& operator[](const int& sub) {
+        if (sub < 0 || sub >= arraySize)
+            subError();
+        return aptr[sub];
+    }
+
+    // Const operator[] (add this)
+    const T& operator[](const int& sub) const {
+        if (sub < 0 || sub >= arraySize)
+            subError();
+        return aptr[sub];
+    }
 
     // Push_back fucntion
     void push_back(T element);
@@ -96,7 +107,7 @@ void SimpleVector<T>::memError() {
 
 // subError function. Displays an error message and terminates the program when a subscript is out of range.
 template <class T>
-void SimpleVector<T>::subError() {
+void SimpleVector<T>::subError() const { // Add const here
     cout << "ERROR: Subscript out of range.\n";
     exit(EXIT_FAILURE);
 }
@@ -104,14 +115,6 @@ void SimpleVector<T>::subError() {
 // getElementAt function. The argument is a subscript. This function returns the value stored at the subscript in the array.
 template <class T>
 T SimpleVector<T>::getElementAt(int sub) {
-    if (sub < 0 || sub >= arraySize)
-        subError();
-    return aptr[sub];
-}
-
-// Overloaded [] operator. The argument is a subscript. This function returns a reference to the element in the array indexed by the subscript.
-template <class T>
-T& SimpleVector<T>::operator[](const int& sub) {
     if (sub < 0 || sub >= arraySize)
         subError();
     return aptr[sub];

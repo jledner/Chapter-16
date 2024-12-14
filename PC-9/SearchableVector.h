@@ -1,6 +1,6 @@
 #ifndef SEARCHABLEVECTOR_H
 #define SEARCHABLEVECTOR_H
-#include "SimpleVector.h"
+#include "..\PC-8\SimpleVector.h"
 #include <algorithm>
 
 template <class T>
@@ -15,6 +15,9 @@ public:
     // Copy constructor
     SearchableVector(const SearchableVector&);
 
+    // Converting constructor 
+    SearchableVector(const SimpleVector<T>& obj);
+
     // Accessor to find an item
     bool findItem(const T);
 };
@@ -24,7 +27,16 @@ template <class T>
 SearchableVector<T>::SearchableVector(const SearchableVector& obj) :
     SimpleVector<T>(obj.size()) {
     for (int count = 0; count < this->size(); count++)
-        this->operator[](count) = obj[count];
+        (*this)[count] = obj.operator[](count);
+}
+
+// Converting constructor
+template <class T>
+SearchableVector<T>::SearchableVector(const SimpleVector<T>& obj)
+    : SimpleVector<T>(obj.size()) {
+    for (int count = 0; count < this->size(); count++) {
+        (*this)[count] = obj.operator[](count);
+    }
 }
 
 // findItem function
@@ -38,10 +50,10 @@ bool SearchableVector<T>::findItem(const T item) {
 
     while (low <= high) {
         int midpoint = (high + low) / 2;
-        if (this->operator[](midpoint) == item) {
+        if ((*this)[midpoint] == item) {
             return true;
         }
-        else if (item > this->operator[](midpoint))
+        else if (item > (*this)[midpoint])
             low = midpoint + 1;
         else
             high = midpoint - 1;
