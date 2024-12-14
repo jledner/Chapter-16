@@ -2,7 +2,7 @@
 #include <iostream>
 #include "SimpleVector.h"
 #include "..\PC-9\SearchableVector.h"
-#include "..\PC-10\SortableVector.h"
+#include "..\PC-11\SortableVector.h"
 using namespace std;
 
 int main() {
@@ -75,8 +75,8 @@ int main() {
     for (count = 0; count < SIZE + 1; count++)
         cout << doubleTable[count] << " ";
     cout << endl;
-
-    SortableVector<double> sortvec(doubleTable);
+    SearchableVector<double> searchvec(doubleTable);
+    SortableVector<double> sortvec(searchvec);
     sortvec.sort();
     for (count = 0; count < SIZE; count++)
         cout << sortvec[count] << " ";
@@ -93,8 +93,14 @@ int main() {
         cout << "Found" << endl;
     }
 
-
-
+    sortvec.push_back(7);
+    found = sortvec.sortAndSearch(7);
+    for (count = 0; count < SIZE; count++)
+        cout << sortvec[count] << " ";
+    cout << endl;
+    if (found) {
+        cout << "Found" << endl;
+    }
 
     return 0;
 }
